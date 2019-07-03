@@ -18,7 +18,7 @@ Candidate*& Vector_of_candidates::operator[](int indice){
 void Vector_of_candidates::operator+=(Candidate * pt_candidate){
     if (last_active_candidate+1==max_length)
     {   
-        Candidate ** vector_of_candidates_temp = new Candidate*[max_length+temp_max_length];
+        Candidate ** vector_of_candidates_temp = new Candidate*[temp_max_length+max_length];
         for (int i{0}; i<max_length; i++)
         {
             vector_of_candidates_temp[i] = vector_of_candidates[i];
@@ -35,7 +35,7 @@ void Vector_of_candidates::operator+=(Candidate * pt_candidate){
 void Vector_of_candidates::Clean(){
     int last_not_empty_candidate{-1};
     for (int i{0}; i<=last_active_candidate; i++){
-        if (!(vector_of_candidates[i]->GetZ().Is_empty())){
+        if (!(vector_of_candidates[i]->GetZ()->Empty())){
             last_not_empty_candidate++;
             vector_of_candidates[last_not_empty_candidate] = vector_of_candidates[i];
         }

@@ -2,7 +2,7 @@
 #define DEF_FPOPPSD
 
 #include <vector>
-#include "Interval.h"
+#include "Linkedlist.h"
 #include <random>
 
 class FpopPSD

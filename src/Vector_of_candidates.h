@@ -13,11 +13,8 @@ private:
 public:
     Vector_of_candidates(int max_length, Candidate * candidate);
     void Clean();
-    void Extend();
     Candidate*& operator[](int indice);
     void operator+=(Candidate * pt_candidate);
     int Get_last_active_candidate();
 };
-
-
 #endif

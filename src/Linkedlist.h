@@ -1,9 +1,9 @@
-#ifndef DEF_INTERVAL
-#define DEF_INTERVAL
+#ifndef DEF_LINKEDLIST
+#define DEF_LINKEDLIST
 
 #include <vector>
 #include <array> 
-#include <list>
+class Linkedlist;
 
 class Interval
 {
@@ -26,7 +26,7 @@ public:
      * @details Instancie l'intersection des intervalles contenus dans une liste d'intervalles. Cette intersection peut être vide ou peut prendre la forme d'un singleton.
      * @param[in] list_of_intervals_to_intersect Une liste non ordonnée d'intervalles non vides, qui ne sont pas des singletons. Cette liste peut être vide auquel cas elle instancie un intervalle vide. 
      */
-    Interval(std::list<Interval> & list_of_intervals_to_intersect);
+    Interval(Linkedlist * list_of_intervals_to_intersect);
 
     /**
      * @details Met à jour l'intervalle courant en l'intersectant avec un autre intervalle.
@@ -72,6 +72,40 @@ public:
     void Set_end(double end_);
 
     
+};
+
+struct Node
+{
+    Interval interval;
+    Node *next;
+    Node *previous;    
+};
+
+class Linkedlist
+{
+private:
+    Node *head, *tail;
+    int length;
+public:
+    Linkedlist();
+    Linkedlist(Interval l);
+    ~Linkedlist();
+    //static Node * mergeSort(Node * head);
+    void Push_back(Interval interval);
+    int Size();
+    void Sort();
+    Node * Front();
+    Node * Back();
+    double Max();
+    double Min();
+    bool Empty();
+    void Merge();
+    Node * Erase(Node * node_to_erased);
+    void Update_tail();
+    void Update_head();
+    void Print();
+    void Intersect_with(Interval & interval_to_intersect);
+    void Complementary_in(Interval & d);
 };
 
 #endif

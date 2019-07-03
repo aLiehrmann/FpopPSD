@@ -3,7 +3,7 @@
 #include <array>
 #include <limits> 
 #include <iostream>
-#include "Interval.h"
+#include "Linkedlist.h"
 
 
 Quadratic::Quadratic()
