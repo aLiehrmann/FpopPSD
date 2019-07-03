@@ -9,6 +9,7 @@ private:
     int last_active_candidate;
     Candidate ** vector_of_candidates;
     int max_length;
+    int temp_max_length;
 public:
     Vector_of_candidates(int max_length, Candidate * candidate);
     void Clean();

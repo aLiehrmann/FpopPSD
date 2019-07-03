@@ -5,6 +5,7 @@
 Vector_of_candidates::Vector_of_candidates(int max_length_, Candidate * candidate)
 {
     max_length = max_length_;
+    temp_max_length = max_length_;
     vector_of_candidates = new Candidate*[max_length_];
     vector_of_candidates[0] = candidate;
     last_active_candidate = 0;
@@ -17,7 +18,7 @@ Candidate*& Vector_of_candidates::operator[](int indice){
 void Vector_of_candidates::operator+=(Candidate * pt_candidate){
     if (last_active_candidate+1==max_length)
     {   
-        Candidate ** vector_of_candidates_temp = new Candidate*[max_length*2];
+        Candidate ** vector_of_candidates_temp = new Candidate*[max_length+temp_max_length];
         for (int i{0}; i<max_length; i++)
         {
             vector_of_candidates_temp[i] = vector_of_candidates[i];
@@ -25,7 +26,7 @@ void Vector_of_candidates::operator+=(Candidate * pt_candidate){
         delete[] vector_of_candidates;
         vector_of_candidates = vector_of_candidates_temp;
         vector_of_candidates_temp = 0;
-        max_length = max_length*2;
+        max_length = max_length+temp_max_length;
     }
     last_active_candidate++;
     vector_of_candidates[last_active_candidate] = pt_candidate;

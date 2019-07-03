@@ -49,7 +49,7 @@ void FpopPSD::Search()
     double min_candidate;
     int index;
     std::vector<int> chosen_candidates;
-    Vector_of_candidates array_of_candidates(10*log(n),new Candidate(0,  Ordered_list_of_intervals (d), 0, 0, Quadratic()));
+    Vector_of_candidates array_of_candidates(3*log(n),new Candidate(0,  Ordered_list_of_intervals (d), 0, 0, Quadratic()));
     
 
     for (int t {1}; t<y.size(); t++)
