@@ -140,7 +140,7 @@ void FpopPSD::Search()
         list_of_candidates.erase(std::remove_if(list_of_candidates.begin(), list_of_candidates.end(), [](Candidate & a) {
             return a.GetZ().Is_empty();
         }), list_of_candidates.end());
-
+        std::cout << 1 << "\n";
      }
 
 }
