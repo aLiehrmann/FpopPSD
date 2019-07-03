@@ -38,6 +38,7 @@ void OpPSD::Search()
     
     for (int t {1}; t<y.size(); t++)
     {   
+        
         F = std::numeric_limits<double>::max();
         for (auto it_candidate {list_of_candidates.begin()}; it_candidate != list_of_candidates.end(); ++it_candidate)
         {   

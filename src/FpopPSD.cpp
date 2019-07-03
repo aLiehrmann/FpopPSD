@@ -4,11 +4,11 @@
 #include "Candidate.h"
 #include <algorithm>
 #include <math.h>
-#include <list>
 #include <limits>
 #include "Sampling.h"
 #include "Ordered_list_of_intervals.h"
 #include "Interval.h"
+#include "Vector_of_candidates.h"
 
 
 FpopPSD::FpopPSD(){};
@@ -44,14 +44,12 @@ FpopPSD::FpopPSD(std::vector<double> y_,
 
 void FpopPSD::Search()
 {
-    std::list<Candidate> list_of_candidates {Candidate(0,  Ordered_list_of_intervals (d), 0, 0, Quadratic())};
     double F;
     int t_hat;
     double min_candidate;
     int index;
     std::vector<int> chosen_candidates;
-    std::vector<std::list<Candidate>::iterator> vector_of_it_candidates;
-
+    Vector_of_candidates array_of_candidates(10*log(n),new Candidate(0,  Ordered_list_of_intervals (d), 0, 0, Quadratic()));
     
 
     for (int t {1}; t<y.size(); t++)
@@ -63,14 +61,6 @@ void FpopPSD::Search()
             Ce dernier élément est défini en vue de l'introduction du nouveau candidat.
         */
         
-        std::vector<std::list<Candidate>::iterator> vector_of_it_candidates (list_of_candidates.size()+1);
-        index = 0;
-        for (auto it_candidate {list_of_candidates.begin()}; it_candidate != list_of_candidates.end(); ++it_candidate)
-        {
-            vector_of_it_candidates[index] = it_candidate;
-            index+=1;
-        }
-
         /*
             (1) On met à jour de la forme quadratique pour l'ensemble des candidats encore considérés.
             
@@ -78,16 +68,17 @@ void FpopPSD::Search()
             
             (3) on met à jour du coût minimum de ségmentation et sauvegarde candidat associé.
         */
+
         F = std::numeric_limits<double>::max();
-        for (int i {0}; i<vector_of_it_candidates.size()-1; i++)
+        for (int i {0}; i<=array_of_candidates.Get_last_active_candidate(); i++)
         {
-            (*vector_of_it_candidates[i]).Add_quadratic(wt[t], y[t]); //1
-            (*vector_of_it_candidates[i]).Set_penalty(-beta * std::log(t-(*vector_of_it_candidates[i]).Get_tau())); //(2)
-            min_candidate = (*vector_of_it_candidates[i]).Minimum_of_cost_function(); 
+            array_of_candidates[i] -> Add_quadratic(wt[t], y[t]); //1
+            array_of_candidates[i] -> Set_penalty(-beta * std::log(t-array_of_candidates[i] -> Get_tau())); //(2)
+            min_candidate = array_of_candidates[i] -> Minimum_of_cost_function(); 
             if (min_candidate < F) //(3)
             {
                 F = min_candidate;
-                t_hat = (*vector_of_it_candidates[i]).Get_tau();
+                t_hat = array_of_candidates[i] -> Get_tau();
             }
         }
 
@@ -100,8 +91,8 @@ void FpopPSD::Search()
             (3) Le dernier élément de array_of_candidates pointe désormais vers le dernier candidat introduit.
         */
         cp[t] = t_hat; //(1)
-        list_of_candidates.push_back( Candidate(t, Ordered_list_of_intervals (d), F+alpha, 0, Quadratic())); //(2)
-        vector_of_it_candidates[vector_of_it_candidates.size()-1] = --list_of_candidates.end(); //(3)
+        Candidate * c = new Candidate(t, Ordered_list_of_intervals (d), F+alpha, 0, Quadratic());
+        array_of_candidates += c;
 
         
         /*
@@ -111,16 +102,16 @@ void FpopPSD::Search()
         */
 
         
-        for (int i {0}; i<vector_of_it_candidates.size(); i++)
+        for (int i {0}; i<=array_of_candidates.Get_last_active_candidate(); i++)
         {
-            nb_intervals[t-1] += (*vector_of_it_candidates[i]).GetZ().size(); //(1)
+            nb_intervals[t-1] += array_of_candidates[i] -> GetZ().size(); //(1)
         }
-        nb_candidates[t-1] += list_of_candidates.size(); //(2)
+        nb_candidates[t-1] += array_of_candidates.Get_last_active_candidate()+1; //(2)
 
  
         //On met à jour la zone de vie de la fonction de coût du dernier candidat.
         
-        (*vector_of_it_candidates.back()).Compare_to_past_candidates(vector_of_it_candidates, d);
+        array_of_candidates[array_of_candidates.Get_last_active_candidate()] -> Compare_to_past_candidates(array_of_candidates, d); 
 
         /*
             (1) On échantillonne les candidats introduits après un certain candidat i pour les comparer avec ce dernier.
@@ -128,20 +119,18 @@ void FpopPSD::Search()
             (2) On met à jour la zone de vie de la fonction de coût du candidat i.
         */
         
-        for (auto i{0}; i<vector_of_it_candidates.size()-2; i++) //
+        for (auto i{0}; i<array_of_candidates.Get_last_active_candidate()-1; i++) //
         {
-            chosen_candidates = sampling_method(i, vector_of_it_candidates.size()-1, sampling_method_parameter); //(1)
-            (*vector_of_it_candidates[i]).Compare_to_future_candidates(vector_of_it_candidates, chosen_candidates); //(2)
+            chosen_candidates = sampling_method(i, array_of_candidates.Get_last_active_candidate(), sampling_method_parameter); //(1)
+            array_of_candidates[i] -> Compare_to_future_candidates(array_of_candidates, chosen_candidates); //(2)
         }
     /*
         On élague les candidats dont la zone de vie de leur fonction de coût est vide.
     */
     
-        list_of_candidates.erase(std::remove_if(list_of_candidates.begin(), list_of_candidates.end(), [](Candidate & a) {
-            return a.GetZ().Is_empty();
-        }), list_of_candidates.end());
-        std::cout << 1 << "\n";
-     }
+        array_of_candidates.Clean();
+
+    }
 
 }
 
