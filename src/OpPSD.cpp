@@ -6,7 +6,9 @@
 #include <math.h>
 #include <limits>
 #include <list> 
-#include "Ordered_list_of_intervals.h"
+#include "SinglyLinkedList.h"
+#include "Interval.h"
+#include "Vector_of_candidates.h"
 
 OpPSD::OpPSD(std::vector<double> y_, double beta_, double alpha_, std::vector<double>  wt_)
 {
@@ -30,7 +32,7 @@ OpPSD::OpPSD(std::vector<double> y_, double beta_, double alpha_, std::vector<do
 
 void OpPSD::Search()
 {
-    std::list<Candidate> list_of_candidates {Candidate(0, Ordered_list_of_intervals (d), 0, 0, Quadratic())};
+    Vector_of_candidates array_of_candidates(10*log(n), new Candidate(0, new SinglyLinkedList (d), 0, 0, Quadratic()));
     double F;
     int t_hat;
     double min_candidate;
@@ -40,19 +42,20 @@ void OpPSD::Search()
     {   
         
         F = std::numeric_limits<double>::max();
-        for (auto it_candidate {list_of_candidates.begin()}; it_candidate != list_of_candidates.end(); ++it_candidate)
-        {   
-            (*it_candidate).Add_quadratic(wt[t], y[t]);
-            (*it_candidate).Set_penalty(-beta * std::log(t-(*it_candidate).Get_tau()));
-            min_candidate = (*it_candidate).Minimum_of_cost_function();
-            if (min_candidate < F)
+        for (int i {0}; i<=array_of_candidates.Get_last_active_candidate(); i++)
+        {
+            array_of_candidates[i] -> Add_quadratic(wt[t], y[t]); //1
+            array_of_candidates[i] -> Set_penalty(-beta * std::log(t-array_of_candidates[i] -> Get_tau())); //(2)
+            min_candidate = array_of_candidates[i] -> Minimum_of_cost_function(); 
+            if (min_candidate < F) //(3)
             {
                 F = min_candidate;
-                t_hat = (*it_candidate).Get_tau();
+                t_hat = array_of_candidates[i] -> Get_tau();
             }
         }
-        cp[t] = t_hat;
-        list_of_candidates.push_back( Candidate(t, Ordered_list_of_intervals (d), F+alpha, 0, Quadratic()));
+        cp[t] = t_hat; //(1)
+        Candidate * c = new Candidate(t, new SinglyLinkedList (d), F+alpha, 0, Quadratic());
+        array_of_candidates += c;
     }
 }
 

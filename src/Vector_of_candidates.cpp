@@ -35,7 +35,7 @@ void Vector_of_candidates::operator+=(Candidate * pt_candidate){
 void Vector_of_candidates::Clean(){
     int last_not_empty_candidate{-1};
     for (int i{0}; i<=last_active_candidate; i++){
-        if (!(vector_of_candidates[i]->GetZ().Is_empty())){
+        if (!(vector_of_candidates[i]->GetZ()->Empty())){
             last_not_empty_candidate++;
             vector_of_candidates[last_not_empty_candidate] = vector_of_candidates[i];
         }

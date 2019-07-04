@@ -22,11 +22,6 @@ public:
      */
     Interval(double begin_, double end_);
 
-    /**
-     * @details Instancie l'intersection des intervalles contenus dans une liste d'intervalles. Cette intersection peut être vide ou peut prendre la forme d'un singleton.
-     * @param[in] list_of_intervals_to_intersect Une liste non ordonnée d'intervalles non vides, qui ne sont pas des singletons. Cette liste peut être vide auquel cas elle instancie un intervalle vide. 
-     */
-    Interval(std::list<Interval> & list_of_intervals_to_intersect);
 
     /**
      * @details Met à jour l'intervalle courant en l'intersectant avec un autre intervalle.

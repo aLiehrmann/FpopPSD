@@ -6,9 +6,9 @@
 #include <math.h>
 #include <limits>
 #include "Sampling.h"
-#include "Ordered_list_of_intervals.h"
-#include "Interval.h"
+#include "SinglyLinkedList.h"
 #include "Vector_of_candidates.h"
+#include "Interval.h"
 
 
 FpopPSD::FpopPSD(){};
@@ -49,7 +49,7 @@ void FpopPSD::Search()
     double min_candidate;
     int index;
     std::vector<int> chosen_candidates;
-    Vector_of_candidates array_of_candidates(3*log(n),new Candidate(0,  Ordered_list_of_intervals (d), 0, 0, Quadratic()));
+    Vector_of_candidates array_of_candidates(3*log(n),new Candidate(0,  new SinglyLinkedList(d), 0, 0, Quadratic()));
     
 
     for (int t {1}; t<y.size(); t++)
@@ -91,7 +91,7 @@ void FpopPSD::Search()
             (3) Le dernier élément de array_of_candidates pointe désormais vers le dernier candidat introduit.
         */
         cp[t] = t_hat; //(1)
-        Candidate * c = new Candidate(t, Ordered_list_of_intervals (d), F+alpha, 0, Quadratic());
+        Candidate * c = new Candidate(t, new SinglyLinkedList(d), F+alpha, 0, Quadratic());
         array_of_candidates += c;
 
         
@@ -104,7 +104,7 @@ void FpopPSD::Search()
         
         for (int i {0}; i<=array_of_candidates.Get_last_active_candidate(); i++)
         {
-            nb_intervals[t-1] += array_of_candidates[i] -> GetZ().size(); //(1)
+            nb_intervals[t-1] += array_of_candidates[i] -> GetZ()->Size(); //(1)
         }
         nb_candidates[t-1] += array_of_candidates.Get_last_active_candidate()+1; //(2)
 
@@ -118,7 +118,7 @@ void FpopPSD::Search()
 
             (2) On met à jour la zone de vie de la fonction de coût du candidat i.
         */
-        
+
         for (auto i{0}; i<array_of_candidates.Get_last_active_candidate()-1; i++) //
         {
             chosen_candidates = sampling_method(i, array_of_candidates.Get_last_active_candidate(), sampling_method_parameter); //(1)

@@ -3,8 +3,8 @@
 #include <array>
 #include <limits> 
 #include <iostream>
+#include "SinglyLinkedList.h"
 #include "Interval.h"
-
 
 Quadratic::Quadratic()
 {

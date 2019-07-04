@@ -5,7 +5,8 @@
 #include <vector>
 #include "Quadratic.h"
 #include <list>
-#include "Ordered_list_of_intervals.h"
+#include "SinglyLinkedList.h"
+
 class Vector_of_candidates;
 
 class Candidate
@@ -13,7 +14,7 @@ class Candidate
 private:
     double cost_up_to_tau;
     int tau;
-    Ordered_list_of_intervals z;
+    SinglyLinkedList * z;
     Quadratic quad;
     double pen;
     int wait;
@@ -27,7 +28,7 @@ public:
      * @param[in] pen_ pénalité dépendante de la taille du segment formé par les points situés après tau
      * @param[in] quad_ forme quadratique construite à partir des points situés après tau
      */
-    Candidate(int tau_, Ordered_list_of_intervals z_, double cost_up_to_tau_, double pen_, Quadratic quad_);
+    Candidate(int tau_, SinglyLinkedList * z_, double cost_up_to_tau_, double pen_, Quadratic quad_);
     
     /** 
      * @details Constructeur par défaut.
@@ -63,7 +64,7 @@ public:
     /**
      * @returns la liste triée des intervalles formant la zone de vie de la fonction de coût du candidat courant.
      */
-    Ordered_list_of_intervals GetZ();
+    SinglyLinkedList * GetZ();
 
     /**
      * @returns tau du candidat courant.
@@ -72,7 +73,7 @@ public:
 
     void Set_wait();
     int Get_wait();
-    //~Candidate();
+    ~Candidate();
 };
 
 

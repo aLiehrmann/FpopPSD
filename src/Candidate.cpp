@@ -6,11 +6,11 @@
 #include <iostream> 
 #include <list>
 #include <math.h>
-#include "Ordered_list_of_intervals.h"
 #include "Vector_of_candidates.h"
+#include "SinglyLinkedList.h"
 
 
-Candidate::Candidate(int tau_, Ordered_list_of_intervals z_, double cost_up_to_tau_, double pen_, Quadratic quad_)
+Candidate::Candidate(int tau_, SinglyLinkedList * z_, double cost_up_to_tau_, double pen_, Quadratic quad_)
 {
 
     tau = tau_;
@@ -23,7 +23,7 @@ Candidate::Candidate(int tau_, Ordered_list_of_intervals z_, double cost_up_to_t
 Candidate::Candidate()
 {
     tau=-1;
-    z = Ordered_list_of_intervals();
+    z = new SinglyLinkedList();
     cost_up_to_tau=-1;
     pen=-1;
     quad = Quadratic();
@@ -47,7 +47,7 @@ void Candidate::Add_quadratic(double wt, double y)
 void Candidate::Compare_to_past_candidates (Vector_of_candidates & vector_of_it_candidates, Interval & D)
 {
 
-    std::list<Interval> list_of_intervals;
+    SinglyLinkedList * list_of_intervals = new SinglyLinkedList();
     Interval interval;
     Quadratic new_quad;
     for (int i {0}; i<vector_of_it_candidates.Get_last_active_candidate(); i++)
@@ -63,17 +63,18 @@ void Candidate::Compare_to_past_candidates (Vector_of_candidates & vector_of_it_
         */
         if (!interval.IsEmpty_or_singleton())
         {
-            list_of_intervals.push_back(interval); 
+            list_of_intervals->AddInterval(interval); 
         }
     }
-    Ordered_list_of_intervals list_of_merged_intervals (list_of_intervals);
-    list_of_merged_intervals.Complementary_in(D); 
-    z = list_of_merged_intervals;
+    list_of_intervals->Merge();
+    list_of_intervals->ComplementaryIn(D);
+    //delete z; 
+    z = list_of_intervals; //MEMORY LEAK ICI delete list_of_intervals (pas sur)
 }
 
 void Candidate::Compare_to_future_candidates (Vector_of_candidates & vector_of_it_candidates, std::vector<int> & chosen_future_candidates)
 {
-    std::list<Interval> list_of_intervals;
+    SinglyLinkedList * list_of_intervals = new SinglyLinkedList();
     Interval intersection_of_intervals;
     Interval interval;
     Quadratic new_quad;
@@ -89,19 +90,20 @@ void Candidate::Compare_to_future_candidates (Vector_of_candidates & vector_of_i
         */
         if (!interval.IsEmpty_or_singleton())
         {
-            list_of_intervals.push_back(interval);
+            list_of_intervals->AddInterval(interval);
         }
         else
         {
-            z = Ordered_list_of_intervals();
+            z = new SinglyLinkedList();
             break;
         }
         
     }
-    if (!(z.Is_empty())) 
+
+    if (!(z->Empty())) 
     {
-        intersection_of_intervals = Interval(list_of_intervals);
-        z.Intersect_with(intersection_of_intervals);
+        intersection_of_intervals = list_of_intervals->Intersect();
+        z->IntersectWith(intersection_of_intervals);
     }
 }
 
@@ -110,7 +112,7 @@ int Candidate::Get_tau()
     return tau;
 }
 
-Ordered_list_of_intervals Candidate::GetZ()
+SinglyLinkedList * Candidate::GetZ()
 {
     return z;
 }
@@ -123,4 +125,9 @@ void Candidate::Set_wait()
 int Candidate::Get_wait()
 {
     return wait;
+}
+
+Candidate::~Candidate()
+{
+    delete z;
 }

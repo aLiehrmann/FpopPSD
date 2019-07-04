@@ -19,19 +19,6 @@ Interval::Interval(double begin_, double end_)
     end = end_;
 }
 
-Interval::Interval(std::list<Interval> & list_of_intervals_to_intersect)
-{   
-    if (list_of_intervals_to_intersect.empty())
-    {
-        begin=1;
-        end=-1;
-    }
-    else
-    {
-        begin = (*std::max_element(list_of_intervals_to_intersect.begin(),list_of_intervals_to_intersect.end(), Compare_begin)).begin;
-        end = (*std::min_element(list_of_intervals_to_intersect.begin(),list_of_intervals_to_intersect.end(), Compare_end)).end;
-    }
-}
 
 bool Interval::IsEmpty_or_singleton()
 {
