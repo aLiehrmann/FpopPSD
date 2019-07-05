@@ -12,6 +12,7 @@ private:
     int temp_max_length;
 public:
     Vector_of_candidates(int max_length, Candidate * candidate);
+    ~Vector_of_candidates();
     void Clean();
     Candidate*& operator[](int indice);
     void operator+=(Candidate * pt_candidate);

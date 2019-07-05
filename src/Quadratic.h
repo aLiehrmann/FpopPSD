@@ -2,7 +2,7 @@
 #define DEF_QUADRATIC
 
 #include <array>
-#include "Linkedlist.h"
+#include "DoublyLinkedList.h"
 #include "Interval.h"
 
 class Quadratic
