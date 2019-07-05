@@ -4,6 +4,7 @@
 #include <limits> 
 #include <iostream>
 #include "Linkedlist.h"
+#include "Interval.h"
 
 
 Quadratic::Quadratic()

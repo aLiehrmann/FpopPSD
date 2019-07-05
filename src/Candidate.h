@@ -1,7 +1,7 @@
 #ifndef DEF_CANDIDATE
 #define DEF_CANDIDATE
 
-//#include "Interval.h"
+#include "Interval.h"
 #include <vector>
 #include "Quadratic.h"
 #include <list>

@@ -4,6 +4,7 @@
 #include <vector>
 #include "Linkedlist.h"
 #include <random>
+#include "Interval.h"
 
 class FpopPSD
 {

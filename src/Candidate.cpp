@@ -1,6 +1,6 @@
 #include "Candidate.h"
 #include "Quadratic.h"
-//#include "Interval.h"
+#include "Interval.h"
 #include <vector>
 #include <array> 
 #include <iostream> 
@@ -95,24 +95,16 @@ void Candidate::Compare_to_future_candidates (Vector_of_candidates & vector_of_i
         }
         else
         {
-            //std::cout <<"empty: " <<tau << " " << chosen_future_candidates[0]<<"\n";
             delete z;
             z = new Linkedlist();
             break;
         }
         
     }
-    //std::cout << tau << " " << chosen_future_candidates[0]<<"\n";
-    //list_of_intervals->Print();
     if (!(z->Empty())) 
     {
-        //std::cout << tau << " " << "\n";
-        //list_of_intervals->Print();
-        intersection_of_intervals = Interval(list_of_intervals);
-        //std::cout << "interval to intersect " << intersection_of_intervals.Get_begin() << ";" << intersection_of_intervals.Get_end() << "\n";
-        //z->Print();
+        intersection_of_intervals = list_of_intervals->Intersect();
         z->Intersect_with(intersection_of_intervals);
-        //z->Print();
     }
 }
 

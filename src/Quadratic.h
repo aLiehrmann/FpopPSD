@@ -3,6 +3,7 @@
 
 #include <array>
 #include "Linkedlist.h"
+#include "Interval.h"
 
 class Quadratic
 {

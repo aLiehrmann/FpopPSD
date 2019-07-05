@@ -6,9 +6,9 @@
 #include <math.h>
 #include <limits>
 #include <list> 
-//#include "Ordered_list_of_intervals.h"
 #include "Vector_of_candidates.h"
 #include "Linkedlist.h"
+#include "Interval.h"
 
 OpPSD::OpPSD(std::vector<double> y_, double beta_, double alpha_, std::vector<double>  wt_)
 {
