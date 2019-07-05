@@ -23,8 +23,9 @@ void Vector_of_candidates::operator+=(Candidate * pt_candidate){
         {
             vector_of_candidates_temp[i] = vector_of_candidates[i];
         }
+        delete[] vector_of_candidates;
         vector_of_candidates = vector_of_candidates_temp;
-        vector_of_candidates_temp = 0;
+        vector_of_candidates_temp=0;
         max_length = max_length+temp_max_length;
     }
     last_active_candidate++;
