@@ -27,7 +27,7 @@ fpopPSD(rnorm(10^5), 2.5, 10 + 2.5 * log(10^5), "rand_one", 1,    rep(1, 10^5)) 
  1.941556 1.962582 1.994283    10
 ```
 
-### Doubly_Linked_List
+### Doubly_Linked_List + array_of_candidates
 ```{r}
 microbenchmark(fpopPSD(rnorm(10^5), 2.5, 10+2.5*log(10^5), "rand_one", 1, rep(1,10^5)), times=10)
 ```
@@ -37,4 +37,16 @@ Unit: seconds
 fpopPSD(rnorm(10^5), 2.5, 10 + 2.5 * log(10^5), "rand_one", 1,    rep(1, 10^5)) 1.657636 1.707535 1.733779
    median       uq      max neval
  1.729532 1.756049 1.813154    10
+```
+
+### Singly_Linked_List + array_of_candidates
+```{r}
+microbenchmark(fpopPSD(rnorm(10^5), 2.5, 10+2.5*log(10^5), "rand_one", 1, rep(1,10^5)), times=10)
+```
+```
+Unit: seconds
+                                                                            expr      min       lq    mean
+fpopPSD(rnorm(10^5), 2.5, 10 + 2.5 * log(10^5), "rand_one", 1,     rep(1, 10^5)) 1.845131 1.938781 1.98846
+   median       uq      max neval
+ 1.990661 2.012469 2.200516    10
 ```
