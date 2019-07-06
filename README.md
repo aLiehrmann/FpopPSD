@@ -1,52 +1,64 @@
 # FpopPSD
 
+##Rstudio
 
-### standard
 ```{r}
 microbenchmark(fpopPSD(rnorm(10^5), 2.5, 10+2.5*log(10^5), "rand_one", 1, rep(1,10^5)), times=10)
 ```
+
+### -> standard
 ```
 Unit: seconds
-                                                                          expr      min       lq     mean
-fpopPSD(rnorm(10^5), 2.5, 10 + 2.5 * log(10^5), "rand_one", 1,    rep(1, 10^5)) 1.728959 1.775428 1.823862
-
-   median       uq      max neval
- 1.833681 1.859221 1.894165    10
+                                                                              expr
+ fpopPSD(rnorm(10^5), 2.5, 10 + 2.5 * log(10^5), "rand_one", 1,      rep(1, 10^5))
+      min       lq     mean   median       uq      max neval
+ 1.772096 1.829262 1.850465 1.855723 1.879737 1.898676    10
 ```
 
-### array_of_candidates
-```{r}
-microbenchmark(fpopPSD(rnorm(10^5), 2.5, 10+2.5*log(10^5), "rand_one", 1, rep(1,10^5)), times=10)
-```
+### -> Doubly_Linked_List + array_of_candidates
 ```
 Unit: seconds
-                                                                          expr      min       lq    mean
-fpopPSD(rnorm(10^5), 2.5, 10 + 2.5 * log(10^5), "rand_one", 1,    rep(1, 10^5)) 1.869383 1.885619 1.932418
-
-   median       uq      max neval
- 1.941556 1.962582 1.994283    10
+                                                                              expr
+ fpopPSD(rnorm(10^5), 2.5, 10 + 2.5 * log(10^5), "rand_one", 1,      rep(1, 10^5))
+      min       lq     mean  median       uq      max neval
+ 2.083051 2.112874 2.143142 2.13984 2.169943 2.215169    10
 ```
 
-### Doubly_Linked_List + array_of_candidates
-```{r}
-microbenchmark(fpopPSD(rnorm(10^5), 2.5, 10+2.5*log(10^5), "rand_one", 1, rep(1,10^5)), times=10)
-```
+### -> Singly_Linked_List + array_of_candidates
+
 ```
 Unit: seconds
-                                                                          expr      min       lq     mean
-fpopPSD(rnorm(10^5), 2.5, 10 + 2.5 * log(10^5), "rand_one", 1,    rep(1, 10^5)) 1.657636 1.707535 1.733779
-   median       uq      max neval
- 1.729532 1.756049 1.813154    10
+                                                                              expr
+ fpopPSD(rnorm(10^5), 2.5, 10 + 2.5 * log(10^5), "rand_one", 1,      rep(1, 10^5))
+      min       lq     mean   median       uq      max neval
+ 2.153212 2.175025 2.287709 2.207098 2.269635 2.635958    10
 ```
 
-### Singly_Linked_List + array_of_candidates
-```{r}
-microbenchmark(fpopPSD(rnorm(10^5), 2.5, 10+2.5*log(10^5), "rand_one", 1, rep(1,10^5)), times=10)
-```
+##Rconsole
+
+### -> standart
 ```
 Unit: seconds
-                                                                            expr      min       lq    mean
-fpopPSD(rnorm(10^5), 2.5, 10 + 2.5 * log(10^5), "rand_one", 1,     rep(1, 10^5)) 1.845131 1.938781 1.98846
-   median       uq      max neval
- 1.990661 2.012469 2.200516    10
+                                                                              expr
+ fpopPSD(rnorm(10^5), 2.5, 10 + 2.5 * log(10^5), "rand_one", 1,      rep(1, 10^5))
+      min       lq    mean   median       uq      max neval
+ 1.280487 1.289882 1.30568 1.296986 1.323208 1.339936    10
+```
+
+### -> Doubly_Linked_List + array_of_candidates
+```
+Unit: seconds
+                                                                              expr
+ fpopPSD(rnorm(10^5), 2.5, 10 + 2.5 * log(10^5), "rand_one", 1,      rep(1, 10^5))
+      min       lq    mean   median       uq      max neval
+ 1.603065 1.609618 1.74338 1.760211 1.839596 1.915139    10
+```
+
+### -> Singly_Linked_List + array_of_candidates
+```
+Unit: seconds
+                                                                              expr
+ fpopPSD(rnorm(10^5), 2.5, 10 + 2.5 * log(10^5), "rand_one", 1,      rep(1, 10^5))
+      min       lq     mean   median       uq     max neval
+ 1.480823 1.511765 1.574559 1.557891 1.656015 1.68184    10
 ```
