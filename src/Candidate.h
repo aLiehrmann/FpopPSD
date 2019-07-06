@@ -6,7 +6,7 @@
 #include "Quadratic.h"
 #include <list>
 #include "DoublyLinkedList.h"
-class Vector_of_candidates;
+class Array_of_candidates;
 
 class Candidate
 {
@@ -47,13 +47,13 @@ public:
      * @details Recherche les intervalles sur lesquels la fonction de coût du dernier candidat est battue par la fonction de coût des candidats passés.
      * Met à jour la zone de vie de la fonction de coût du dernier candidat avec le complémentaire de l'union des intervalles trouvés.
      */
-    void Compare_to_past_candidates (Vector_of_candidates & past_candidates, Interval & D);
+    void Compare_to_past_candidates (Array_of_candidates & past_candidates, Interval & D);
 
     /**
      * @details Recherche les intervalles sur lesquels la fonction de coût du candidat courant est bat par la fonction de coût des candidats futures au candidat courant.
      * Met à jour la zone de vie du candidat courant en l'intersectant avec l'intersection des intervalles trouvés.
      */
-    void Compare_to_future_candidates (Vector_of_candidates & future_candidates, std::vector<int> & chosen_candidates);
+    void Compare_to_future_candidates (Array_of_candidates & future_candidates, std::vector<int> & chosen_candidates);
     
     /**
      * @details Met à jour la forme quadratique du candidat courant en lui additionnant la quadratique (y-X)^2 pondérée par wt.
