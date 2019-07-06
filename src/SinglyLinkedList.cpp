@@ -319,12 +319,17 @@ void SinglyLinkedList::ComplementaryIn(Interval & d)
             list_of_complementary_intervals->AddInterval(Interval(current_node->interval.Get_end(), d.Get_end()));
         }
         
-        //delete this;
+        for(int i = 0; i < length+1; i++)
+        {
+            SinglyNode * n = sentinel;
+            sentinel = sentinel -> next;
+            delete(n);
+        }
         sentinel = list_of_complementary_intervals->sentinel;
         length = list_of_complementary_intervals->length;
         list_of_complementary_intervals->sentinel=0;
         list_of_complementary_intervals->length=-1;
-        //delete list_of_complementary_intervals;
+        delete list_of_complementary_intervals;
     }
 }
 

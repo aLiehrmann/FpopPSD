@@ -7,7 +7,7 @@
 #include <limits>
 #include "Sampling.h"
 #include "SinglyLinkedList.h"
-#include "Vector_of_candidates.h"
+#include "Array_of_candidates.h"
 #include "Interval.h"
 
 
@@ -49,7 +49,7 @@ void FpopPSD::Search()
     double min_candidate;
     int index;
     std::vector<int> chosen_candidates;
-    Vector_of_candidates array_of_candidates(3*log(n),new Candidate(0,  new SinglyLinkedList(d), 0, 0, Quadratic()));
+    Array_of_candidates array_of_candidates(3*log(n),new Candidate(0,  new SinglyLinkedList(d), 0, 0, Quadratic()));
     
 
     for (int t {1}; t<y.size(); t++)
@@ -128,7 +128,7 @@ void FpopPSD::Search()
         On élague les candidats dont la zone de vie de leur fonction de coût est vide.
     */
     
-        array_of_candidates.Clean();
+        array_of_candidates.Remove_candidates();
 
     }
 

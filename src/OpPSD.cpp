@@ -8,7 +8,7 @@
 #include <list> 
 #include "SinglyLinkedList.h"
 #include "Interval.h"
-#include "Vector_of_candidates.h"
+#include "Array_of_candidates.h"
 
 OpPSD::OpPSD(std::vector<double> y_, double beta_, double alpha_, std::vector<double>  wt_)
 {
@@ -32,7 +32,7 @@ OpPSD::OpPSD(std::vector<double> y_, double beta_, double alpha_, std::vector<do
 
 void OpPSD::Search()
 {
-    Vector_of_candidates array_of_candidates(10*log(n), new Candidate(0, new SinglyLinkedList (d), 0, 0, Quadratic()));
+    Array_of_candidates array_of_candidates(10*log(n), new Candidate(0, new SinglyLinkedList (d), 0, 0, Quadratic()));
     double F;
     int t_hat;
     double min_candidate;
