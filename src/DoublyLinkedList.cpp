@@ -1,4 +1,4 @@
-#include "Linkedlist.h"
+#include "DoublyLinkedList.h"
 #include <cstddef>
 #include <iostream>
 #include "Interval.h"
@@ -56,14 +56,14 @@ Node * mergeSort(Node *head)
 
 
 
-Linkedlist::Linkedlist()
+DoublyLinkedList::DoublyLinkedList()
 {
     head=NULL;
     tail=NULL;
     length=0;
 }
 
-Linkedlist::Linkedlist(Interval interval)
+DoublyLinkedList::DoublyLinkedList(Interval interval)
 {
     length = 1;
     Node *temp = new Node;
@@ -75,7 +75,7 @@ Linkedlist::Linkedlist(Interval interval)
     temp = NULL;
 }
 
-void Linkedlist::Push_back(Interval interval)
+void DoublyLinkedList::Push_back(Interval interval)
 {
     length++;
     Node *temp = new Node;
@@ -98,19 +98,19 @@ void Linkedlist::Push_back(Interval interval)
     }
 }
 
-Node *  Linkedlist::Front(){
+Node *  DoublyLinkedList::Front(){
     return head;
 }
 
-Node * Linkedlist::Back(){
+Node * DoublyLinkedList::Back(){
     return tail;
 }
 
-bool Linkedlist::Empty(){
+bool DoublyLinkedList::Empty(){
     return head==NULL;
 }
 
-double Linkedlist::Max(){
+double DoublyLinkedList::Max(){
     Node * current_node = head;
     double temp_max{current_node->interval.Get_begin()};
     while (current_node->next){
@@ -124,7 +124,7 @@ double Linkedlist::Max(){
     return temp_max; 
 }
 
-double Linkedlist::Min(){
+double DoublyLinkedList::Min(){
     Node * current_node = head;
     double temp_min{current_node->interval.Get_end()};
     while (current_node->next){
@@ -138,19 +138,19 @@ double Linkedlist::Min(){
     return temp_min; 
 }
 
-int Linkedlist::Size()
+int DoublyLinkedList::Size()
 {
     return length;
 }
 
-void Linkedlist::Sort()
+void DoublyLinkedList::Sort()
 {
     head = mergeSort(head);
     this->Update_tail();
 }
 
 
-void Linkedlist::Merge()
+void DoublyLinkedList::Merge()
 {
     if (!this->Empty())
     {
@@ -177,12 +177,12 @@ void Linkedlist::Merge()
                 current_node = current_node->next;
             }
         }
-        this->Update_tail(); //DANS LA BOUCLE ??
+        this->Update_tail(); 
     }
 }
 
 
-Node* Linkedlist::Erase(Node * node_to_erased)
+Node* DoublyLinkedList::Erase(Node * node_to_erased)
 {
     if (!node_to_erased->previous & !node_to_erased->next)
     {
@@ -205,7 +205,7 @@ Node* Linkedlist::Erase(Node * node_to_erased)
 }
 
 
-void Linkedlist::Update_tail(){
+void DoublyLinkedList::Update_tail(){
     tail = head;
     Node * current_node = head->next;
     while (current_node)
@@ -216,7 +216,7 @@ void Linkedlist::Update_tail(){
     current_node=NULL;
 }
 
-void Linkedlist::Update_head(){
+void DoublyLinkedList::Update_head(){
     Node * current_node = tail->previous;
     if (!current_node)
     {
@@ -230,7 +230,7 @@ void Linkedlist::Update_head(){
     current_node=NULL;
 }
 
-void Linkedlist::Print(){
+void DoublyLinkedList::Print(){
     Node * n = head;
     while (n){
         std::cout << n->interval.Get_begin() <<";"<<n->interval.Get_end() << "\n";
@@ -240,7 +240,7 @@ void Linkedlist::Print(){
 
 }
 
-void Linkedlist::Intersect_with(Interval & interval_to_intersect)
+void DoublyLinkedList::Intersect_with(Interval & interval_to_intersect)
 {
     Node * current_node = head;
     while(current_node)
@@ -265,7 +265,7 @@ void Linkedlist::Intersect_with(Interval & interval_to_intersect)
     }
 }
 
-void Linkedlist::Complementary_in(Interval & d)
+void DoublyLinkedList::Complementary_in(Interval & d)
 {
     if (this->Empty())
     {
@@ -273,7 +273,7 @@ void Linkedlist::Complementary_in(Interval & d)
     }
     else
     {
-        Linkedlist * list_of_complementary_intervals = new Linkedlist();
+        DoublyLinkedList * list_of_complementary_intervals = new DoublyLinkedList();
         this->Intersect_with(d);
         if (head->interval.Get_begin()>d.Get_begin())
         {
@@ -291,7 +291,8 @@ void Linkedlist::Complementary_in(Interval & d)
             list_of_complementary_intervals->Push_back(Interval(tail->interval.Get_end(), d.Get_end()));
         }
         
-        Linkedlist * list_of_interval_to_erased = new Linkedlist();
+        
+        DoublyLinkedList * list_of_interval_to_erased = new DoublyLinkedList();
         list_of_interval_to_erased->head = head;
         head = list_of_complementary_intervals->head;
         tail = list_of_complementary_intervals->tail;
@@ -306,7 +307,7 @@ void Linkedlist::Complementary_in(Interval & d)
     }
 }
 
-Linkedlist::~Linkedlist(){
+DoublyLinkedList::~DoublyLinkedList(){
     if (head)
     {
         Node * current_node = head->next;
@@ -322,7 +323,7 @@ Linkedlist::~Linkedlist(){
     }
 }
 
-Interval Linkedlist::Intersect()
+Interval DoublyLinkedList::Intersect()
 {   
     if (this->Empty())
     {

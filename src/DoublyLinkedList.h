@@ -1,5 +1,5 @@
-#ifndef DEF_LINKEDLIST
-#define DEF_LINKEDLIST
+#ifndef DEF_DOUBLYLINKEDLIST
+#define DEF_DOUBLYLINKEDLIST
 
 #include "Interval.h"
 
@@ -10,15 +10,15 @@ struct Node
     Node *previous;    
 };
 
-class Linkedlist
+class DoublyLinkedList
 {
 private:
     Node *head, *tail;
     int length;
 public:
-    Linkedlist();
-    Linkedlist(Interval l);
-    ~Linkedlist();
+    DoublyLinkedList();
+    DoublyLinkedList(Interval l);
+    ~DoublyLinkedList();
     //static Node * mergeSort(Node * head);
     void Push_back(Interval interval);
     int Size();
