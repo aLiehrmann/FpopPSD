@@ -23,12 +23,12 @@ private:
     
 public:
     /**
-     * @param[in] y un vecteur de données ordonnées seulon un attribut
-     * @param[in] beta coefficient utilisé dans le calcul de le la panalité
-     * @param[in] alpha constante utilisée dans le calcul de la pénalité
-     * @param[in] sampling_method méthode d'échantillonnage des candidats
-     * @param[in] param_method paramètre utilisé par la méthode d'échantillonage
-     * @paraam[in] wt vecteur de poids associé à chaque point     
+     * @param[in] y a data vector ordered according to an attribute.
+     * @param[in] beta a coefficient used in the calculation of the penalty.
+     * @param[in] alpha a constant used in the calculation of the penalty.
+     * @param[in] sampling_method a sampling method for candidates.
+     * @param[in] param_method a parameter used by the sampling method.
+     * @paraam[in] wt a vector of weight linked to the data.    
      */
     FpopPSD(std::vector<double> y_,
         double beta_,
@@ -40,23 +40,23 @@ public:
     FpopPSD ();
 
     /**
-     * @details Procédure de localisation des ruptures dans la série de données.
+     * @details Procedure for inferring the number of changepoints and their location in the data.
      */
     void Search();
 
     /**
-     * @returns la localisation des ruptures inférées dans la série de données. 
+     * @returns the location of inferred cghangepoints in the data . 
      */
     std::vector<int> Retreive_changepoints();
 
     /**
-     * @returns un vecteur qui contient le nombre total d'intervalles formant la zone de vie des différents candidats avant l'étape d'élaguage à chaque itération.
+     * @returns a vector that contains the total number of intervals forming the area of life of the different candidates before the pruning step at each iteration.
      */
     std::vector<int> Get_intervals();
 
 
     /**
-     * @returns un vecteur qui contient le nombre total de candidats avant l'étape d'élaguage à chaque itération.
+     * @returns a vector that contains the total number of candidates before the pruning step at each iteration.
      */
     std::vector<int> Get_candidates();
 };

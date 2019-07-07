@@ -12,62 +12,62 @@ private:
     double end;
 public:
     /**
-     * @details Instancie un intervalle vide. 
-     * Tout intervalle de la forme [a,b] tel que a>b est considéré comme un intervalle vide (par default [+1,-1]).
+     * @details Instanciates an empty interval. 
+     * Any interval of the form [a, b] such that a>=b is an empty interval (by default [+ 1, -1]).
      */
     Interval();
 
     /**
-     * Instancie un intervalle de la forme [begin_,end_].
+     * @details Instanciates an interval of the form [begin_,end_].
      */
     Interval(double begin_, double end_);
 
     /**
-     * @details Instancie l'intersection des intervalles contenus dans une liste d'intervalles. Cette intersection peut être vide ou peut prendre la forme d'un singleton.
-     * @param[in] list_of_intervals_to_intersect Une liste non ordonnée d'intervalles non vides, qui ne sont pas des singletons. Cette liste peut être vide auquel cas elle instancie un intervalle vide. 
+     * @details Instantiates the intersection of the intervals contained in a list of intervals. This intersection may be empty or a singleton.
+     * @param[in] list_of_intervals_to_intersect an unsorted list of nonempty intervals, which are not singletons. This list can be empty, in which case it instantiates an empty interval.
      */
     Interval(std::list<Interval> & list_of_intervals_to_intersect);
 
     /**
-     * @details Met à jour l'intervalle courant en l'intersectant avec un autre intervalle.
-     * @param[in] interval_to_intesect Un intervalle qui peut être vide ou prendre la forme d'un singleton.
+     * @details Updates the current interval by intersecting it with another interval.
+     * @param[in] interval_to_intesect an interval that can be empty or take the form of a singleton.
      */
     void operator&=(Interval const& interval_to_intesect);
 
     /**
-     * @details Compare le début de deux intervalles.
-     * @returns TRUE si le début de l'intervalle 'interval1' est inférieur au début de l'intervalle 'interval2', FALSE sinon.
+     * @details Compare the beginning of two intervals.
+     * @returns TRUE si le début de l'intervalle 'interval1' est inférieur au début de l'intervalle 'interval2', FALSE otherwise.
      */
     static bool Compare_begin(Interval const& interval1, Interval const& interval2);
 
     /**
-     * @details Compare la fin de deux intervalles.
-     * @returns TRUE si la fin de l'intervalle 'interval1' est inférieure à la fin de l'intervalle 'interval2', FALSE sinon.
+     * @details Compare the end of the two intervals.
+     * @returns TRUE if the beginning of the interval 'interval1' is less than the beginning of the interval 'interval2', FALSE otherwise.
      */
     static bool Compare_end(Interval const& interval1, Interval const& interval2);
 
     /**
-     * @returns TRUE si l'intervalle courant est vide ([a,b] tel que a>b) prend la forme d'un singleton ([a,a]), FALSE sinon. 
+     * @returns TRUE if the current interval is empty ([a, b] such that a> b) or is a singleton ([a, a]), FALSE otherwise. 
      */
     bool IsEmpty_or_singleton();
 
     /**
-     * @returns Renvoie le debut de l'intervalle courant.
+     * @returns the beginning of the current interval.
      */
     double Get_begin();
 
     /**
-     * @returns Renvoie la fin de l'intervalle courant.
+     * @returns the end of the current interval.
      */
     double Get_end();
 
     /**
-     * @details Met à jour le debut de l'intervalle courant.
+     * @details updates the beginning of the current interval.
      */
     void Set_begin(double begin_);
 
     /**
-     * @details Met à jour la fin de l'intervalle courant.
+     * @details updates the end of the current interval.
      */
     void Set_end(double end_);
 

@@ -6,6 +6,10 @@
 #include "Interval.h"
 
 
+//####### Constructors #######////####### Constructors #######////####### Constructors #######//
+//####### Constructors #######////####### Constructors #######////####### Constructors #######//
+
+
 Quadratic::Quadratic()
 {
     coef[0] = 0;
@@ -29,11 +33,19 @@ void Quadratic::Add_coef( double a0, double a1, double a2)
     
 }
 
+//####### Get_minimum_quadratic_form #######////####### Get_minimum_quadratic_form #######////####### Get_minimum_quadratic_form #######//
+//####### Get_minimum_quadratic_form #######////####### Get_minimum_quadratic_form #######////####### Get_minimum_quadratic_form #######//
+
+
 double Quadratic::Minimum()
 {
-    double argmin { -coef[1] / (2*coef[2]) };
-    return coef[2] * pow(argmin, 2) + coef[1] * argmin + coef[0];
+    return coef[0]-(pow(coef[1],2)/(4*coef[2]));
 }
+
+
+//####### Get_intervals_formed_by roots_of_quadratic_form #######////####### Get_intervals_formed_by roots_of_quadratic_form #######//
+//####### Get_intervals_formed_by roots_of_quadratic_form #######////####### Get_intervals_formed_by roots_of_quadratic_form #######//
+
 
 Interval Quadratic::Negative_interval()
 {
@@ -42,7 +54,7 @@ Interval Quadratic::Negative_interval()
     double x2 {(-coef[1]+sqrt(delta))/(2*coef[2])};
     if (delta > 0) 
     {
-        if (x1 < x2) // on vérifie la borne inférieure et la borne supérieure avant instanciation de l'intervalle
+        if (x1 < x2)
         {
             return Interval (x1, x2);
         }
@@ -56,6 +68,11 @@ Interval Quadratic::Negative_interval()
         return Interval ();
     }
 }
+
+
+//####### substract_two_quadratic_form #######////####### substract_two_quadratic_form #######////####### substract_two_quadratic_form #######//
+//####### substract_two_quadratic_form #######////####### substract_two_quadratic_form #######////####### substract_two_quadratic_form #######//
+
 
 Quadratic Quadratic::operator-(Quadratic const& quadratic_to_subtract)
 {

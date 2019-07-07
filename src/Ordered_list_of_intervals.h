@@ -11,48 +11,43 @@ private:
     std::list<Interval> list_of_intervals;
 public:
     /**
-     * @details Instancie l'union triée des intervalles contenus dans une liste d'intervalles.
-     * @param[in] list_of_intervals_to_merge Une liste d'intrvales non vides, ne contenant pas de singletons, non ordonnée. Cette liste peut être vide.
+     * @details Instantiates the sorted union of the intervals contained in a list of intervals.
+     * @param[in] list_of_intervals_to_merge a list of nonempty intervals, not containing singletons, unordered. This list can be empty.
      */
     Ordered_list_of_intervals(std::list<Interval> & list_of_intervals_to_merge);
     
     /**
-     * @details Instancie une liste ordonnée d'intervalles avec l'intervalle 'interval'.
+     * @details Instantiates an ordered list of intervals with interval 'interval'.
      */
     Ordered_list_of_intervals(Interval interval);
     
     /**
-     * @details Instancie une liste ordonnée d'intervalles à vide.
+     * @details Instantiates an empty ordered list of intervals.
      */
     Ordered_list_of_intervals();
 
     /**
-     * @details Met à jour la liste ordonnée d'intervalles courante en intersectant chaque intervalle contenu dans cette liste avec un l'intervalle 'interval_to_intersect'.
+     * @details Updates the current ordered list of intervals by intersecting each interval contained in this list with an interval 'interval_to_intersect'.
      */    
     void Intersect_with(Interval & interval_to_intersect);
 
     /**
-     * @details Met à jour la liste ordonée d'intervalles avec son complémentaire dans l'intervalle 'D'. Si la liste est vide, elle est mise à jour avec l'intervalle D.
+     * @details Updates the ordered list of intervals with its complementary in the interval 'D'. If the list is empty, it is updated with the interval D.
      */
     void Complementary_in(Interval & d);
 
     /**
-     * @returns TRUE si la liste triée d'intervalles est vide, FALSE sinon.
+     * @returns TRUE if the ordered list of intervals is empty, false otherwise.
      */
     bool Is_empty();
 
     /**
-     * @details Met à jour la liste triée d'intervalles en supprimant les intervalles vides et les singletons.
-     */
-    void Clean();
-
-    /**
-     * @returns La taille de la liste triée d'intervalles.
+     * @returns the length of the ordered list of intervals.
      */
     int size();
 
     /**
-     * @returns La liste triée d'intervalles.
+     * @returns the ordered list of intervals.
      */
     std::list<Interval> Get_list();
 };

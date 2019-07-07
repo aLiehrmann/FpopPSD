@@ -8,10 +8,19 @@
 #include <cstdlib>
 
 
+//####### Rand_one #######////####### Rand_one #######////####### Rand_one #######//
+//####### Rand_one #######////####### Rand_one #######////####### Rand_one #######//
+
+
 std::vector<int> Sampling::Rand_one(int p, int n, int nb)
 {   
     return std::vector<int> {std::rand()%(n-p-1)+1+p};
 }
+
+
+//####### Rand_with_replacement #######////####### Rand_with_replacement #######////####### Rand_with_replacement #######//
+//####### Rand_with_replacement #######////####### Rand_with_replacement #######////####### Rand_with_replacement #######//
+
 
 std::vector<int> Sampling::Rand_with_replacement(int p, int n, int nb)
 {   
@@ -25,6 +34,10 @@ std::vector<int> Sampling::Rand_with_replacement(int p, int n, int nb)
     }
     return chosen_candidates;
 }
+
+
+//####### Rand_without_replacement #######////####### Rand_without_replacement #######////####### Rand_without_replacement #######//
+//####### Rand_without_replacement #######////####### Rand_without_replacement #######////####### Rand_without_replacement #######//
 
 
 std::vector<int> Sampling::Rand_without_replacement(int p, int n, int nb)
@@ -54,6 +67,11 @@ std::vector<int> Sampling::Rand_without_replacement(int p, int n, int nb)
     return chosen_candidates;
 }
 
+
+//####### All #######////####### All #######////####### All #######//
+//####### All #######////####### All #######////####### All #######//
+
+
 std::vector<int> Sampling::All(int p, int n, int nb)
 {   
     std::vector<int> chosen_candidates;
@@ -63,6 +81,11 @@ std::vector<int> Sampling::All(int p, int n, int nb)
     }
     return chosen_candidates;
 }
+
+
+//####### Last #######////####### Last #######////####### Last #######//
+//####### Last #######////####### Last #######////####### Last #######//
+
 
 std::vector<int> Sampling::Last(int p, int n, int nb)
 {
@@ -83,6 +106,10 @@ std::vector<int> Sampling::Last(int p, int n, int nb)
     }
     return chosen_candidates;
 }
+
+
+//####### Only #######////####### Only #######////####### Only #######//
+//####### Only #######////####### Only #######////####### Only #######//
 
 std::vector<int> Sampling::Only(int p, int n, int nb)
 {

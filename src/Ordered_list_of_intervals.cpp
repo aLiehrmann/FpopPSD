@@ -4,10 +4,15 @@
 #include <iostream>
 
 
+//####### Constructors #######////####### Constructors #######////####### Constructors #######//
+//####### Constructors #######////####### Constructors #######////####### Constructors #######//
+
+
 Ordered_list_of_intervals::Ordered_list_of_intervals(Interval interval)
 {
     list_of_intervals.push_back(interval);
 }
+
 
 Ordered_list_of_intervals::Ordered_list_of_intervals(std::list<Interval> & list_of_intervals_to_merge)
 {
@@ -39,6 +44,11 @@ Ordered_list_of_intervals::Ordered_list_of_intervals()
     list_of_intervals = std::list<Interval> ();
 }
 
+
+//####### Intersect_intervals_of_list_with #######////####### Intersect_intervals_of_list_with #######////####### Intersect_intervals_of_list_with #######//
+//####### Intersect_intervals_of_list_with #######////####### Intersect_intervals_of_list_with #######////####### Intersect_intervals_of_list_with #######//
+
+
 void Ordered_list_of_intervals::Intersect_with(Interval & interval_to_intersect){
 
     for (auto it_interval {list_of_intervals.begin()}; it_interval!= list_of_intervals.end(); ++it_interval)
@@ -52,32 +62,32 @@ void Ordered_list_of_intervals::Intersect_with(Interval & interval_to_intersect)
     }
 }
 
+
+//####### Is_empty #######////####### Is_empty #######////####### Is_empty #######//
+//####### Is_empty #######////####### Is_empty #######////####### Is_empty #######//
+
+
 bool Ordered_list_of_intervals::Is_empty()
 {
     return list_of_intervals.empty();
 }
 
+
+//####### Search_complementary_in_D #######////####### Search_complementary_in_D #######////####### Search_complementary_in_D #######//
+//####### Search_complementary_in_D #######////####### Search_complementary_in_D #######////####### Search_complementary_in_D #######//
+
+
 void Ordered_list_of_intervals::Complementary_in(Interval & d)
 {
-    /*
-        On renvoie le complémentaire, dans D, des intervalles triés contenus dans list_of_intervals.
-        (1) Si list_of_intervals est vide ou bien est composée d'un unique intervalle vide ou d'un singleton,
-            on renvoie une liste comprenant uniquement l'intervalle D.
-        (2) On intersecte D avec chaque intervalle contenus dans list_of_intervals qui est mofidiée sur place.
-        (3) Si il existe une région non vide entre le debut de D et le debut du premier intervalle
-            de la liste d'intervalles triés ou la fin du dernier intervalle de la liste d'intervalles triés et la fin de D,
-            on ajoute cette dernière région à la liste des intervalles complémentaires.
-
-    */
-    if (list_of_intervals.empty()) //(1)
+    if (list_of_intervals.empty())
     {
         return list_of_intervals.push_back(d);
     }
     else
     {
-        (*this).Intersect_with(d); //(2)
+        (*this).Intersect_with(d);
         std::list<Interval> list_of_complementary_intervals;
-        if (list_of_intervals.front().Get_begin() > d.Get_begin()) //(3)
+        if (list_of_intervals.front().Get_begin() > d.Get_begin())
         {
             list_of_complementary_intervals.push_back( Interval(d.Get_begin(), list_of_intervals.front().Get_begin()) );
         }
@@ -85,7 +95,7 @@ void Ordered_list_of_intervals::Complementary_in(Interval & d)
         {
             list_of_complementary_intervals.push_back( Interval((*it_interval).Get_end(), (*next(it_interval,1)).Get_begin()) );
         }
-        if (list_of_intervals.back().Get_end() < d.Get_end()) //(3)
+        if (list_of_intervals.back().Get_end() < d.Get_end())
         {
             list_of_complementary_intervals.push_back(Interval(list_of_intervals.back().Get_end(), d.Get_end()));
         }
@@ -93,24 +103,17 @@ void Ordered_list_of_intervals::Complementary_in(Interval & d)
     }
 }
 
-void Ordered_list_of_intervals::Clean()
-{
-    for (auto it_interval {list_of_intervals.begin()}; it_interval!= list_of_intervals.end(); ++it_interval)
-    {
 
-        if ((*it_interval).IsEmpty_or_singleton())
-        {
-            --it_interval;
-            list_of_intervals.erase(next(it_interval,1));
-        }
-    }
-}
+//####### Get_number_of_intervals_in_list #######////####### Get_number_of_intervals_in_list #######////####### Get_number_of_intervals_in_list #######//
+//####### Get_number_of_intervals_in_list #######////####### Get_number_of_intervals_in_list #######////####### Get_number_of_intervals_in_list #######//
 
 int Ordered_list_of_intervals::size()
 {
     return list_of_intervals.size();
 }
 
+//####### Get_the ordered_list_of_intervals #######////####### Get_the ordered_list_of_intervals #######////####### Get_the ordered_list_of_intervals #######//
+//####### Get_the ordered_list_of_intervals #######////####### Get_the ordered_list_of_intervals #######////####### Get_the ordered_list_of_intervals #######//
 
 std::list<Interval> Ordered_list_of_intervals::Get_list()
 {

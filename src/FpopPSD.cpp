@@ -11,6 +11,10 @@
 #include "Interval.h"
 
 
+//####### Constructors #######////####### Constructors #######////####### Constructors #######//
+//####### Constructors #######////####### Constructors #######////####### Constructors #######//
+
+
 FpopPSD::FpopPSD(){};
 
 FpopPSD::FpopPSD(std::vector<double> y_,
@@ -42,6 +46,11 @@ FpopPSD::FpopPSD(std::vector<double> y_,
     nb_intervals = std::vector<int> (y.size()-1, 0);
 }
 
+
+//####### changepoints_search #######////####### changepoints_search #######////####### changepoints_search #######//
+//####### changepoints_search #######////####### changepoints_search #######////####### changepoints_search #######//
+
+
 void FpopPSD::Search()
 {
     std::list<Candidate> list_of_candidates {Candidate(0,  Ordered_list_of_intervals (d), 0, 0, Quadratic())};
@@ -56,13 +65,14 @@ void FpopPSD::Search()
 
     for (int t {1}; t<y.size(); t++)
     {   
+
         /*
-            On initialise un vecteur d'itérateurs.
-            Chaque itérateur pointe vers un candidat contenu dans list_of_candidates.
-            À cette étape, le dernier élément du vecteur ne pointe vers aucun candidat.
-            Ce dernier élément est défini en vue de l'introduction du nouveau candidat.
+            We initialize a vector of iterators.
+            Each iterator points to a candidate in list_of_candidates.
+            At this step, the last element of the vector does not point to any candidate.
         */
-        
+
+
         std::vector<std::list<Candidate>::iterator> vector_of_it_candidates (list_of_candidates.size()+1);
         index = 0;
         for (auto it_candidate {list_of_candidates.begin()}; it_candidate != list_of_candidates.end(); ++it_candidate)
@@ -71,13 +81,16 @@ void FpopPSD::Search()
             index+=1;
         }
 
+
         /*
-            (1) On met à jour de la forme quadratique pour l'ensemble des candidats encore considérés.
-            
-            (2) On met à jour de la pénalité dépendante de la taille du dernier segment pour l'ensemble des candidats encore considérés.
-            
-            (3) on met à jour du coût minimum de ségmentation et sauvegarde candidat associé.
+            (1) The quadratic form is updated for all the candidates still considered.
+            
+            (2) The length-dependent penalty for the last segment is updated for all candidates still considered.
+            
+            (3) we update the minimum cost of segmentation and associated candidate.
         */
+
+
         F = std::numeric_limits<double>::max();
         for (int i {0}; i<vector_of_it_candidates.size()-1; i++)
         {
@@ -93,21 +106,23 @@ void FpopPSD::Search()
 
 
         /*
-            (1) On sauvegarde de la position de la dernière rupture du candidat qui minimise le coût de segmentation jusqu'au point t.
-            
-            (2) On introduit un nouveau candidat dont la dernière rupture correspond au point t.
-            
-            (3) Le dernier élément de array_of_candidates pointe désormais vers le dernier candidat introduit.
+            (1) We save the position of the last changepoint of the candidate that minimizes the cost of segmentation up to the point t.
+            
+            (2) A new candidate is introduced whose last changepoint corresponds to point t.
+            
+            (3) The last element of array_of_candidates is now pointing to the last introduced candidate.
         */
+
+
         cp[t] = t_hat; //(1)
         list_of_candidates.push_back( Candidate(t, Ordered_list_of_intervals (d), F+alpha, 0, Quadratic())); //(2)
         vector_of_it_candidates[vector_of_it_candidates.size()-1] = --list_of_candidates.end(); //(3)
 
         
         /*
-            (1) On sauvegarde de la somme des intervalles sur lesquels sont définies les fonctions de coût associées aux différents candidats.
-            
-            (2) On sauvegarde du nombre de candidats encore considérés. 
+           (1) We save the sum of the intervals in candidates's area of life.
+            
+           (2) We save the number of candidates still considered.
         */
 
         
@@ -118,24 +133,23 @@ void FpopPSD::Search()
         nb_candidates[t-1] += list_of_candidates.size(); //(2)
 
  
-        //On met à jour la zone de vie de la fonction de coût du dernier candidat.
+        // We update the the last candidate's area of life. 
         
+
         (*vector_of_it_candidates.back()).Compare_to_past_candidates(vector_of_it_candidates, d);
 
-        /*
-            (1) On échantillonne les candidats introduits après un certain candidat i pour les comparer avec ce dernier.
 
-            (2) On met à jour la zone de vie de la fonction de coût du candidat i.
-        */
-        
+        // We update candidates with a sample of their future.
+
+
         for (auto i{0}; i<vector_of_it_candidates.size()-2; i++) //
         {
-            chosen_candidates = sampling_method(i, vector_of_it_candidates.size()-1, sampling_method_parameter); //(1)
-            (*vector_of_it_candidates[i]).Compare_to_future_candidates(vector_of_it_candidates, chosen_candidates); //(2)
+            chosen_candidates = sampling_method(i, vector_of_it_candidates.size()-1, sampling_method_parameter);
+            (*vector_of_it_candidates[i]).Compare_to_future_candidates(vector_of_it_candidates, chosen_candidates);
         }
-    /*
-        On élague les candidats dont la zone de vie de leur fonction de coût est vide.
-    */
+    
+        // Candidates whose area of life is empty are pruned.
+    
     
         list_of_candidates.erase(std::remove_if(list_of_candidates.begin(), list_of_candidates.end(), [](Candidate & a) {
             return a.GetZ().Is_empty();
@@ -144,6 +158,11 @@ void FpopPSD::Search()
      }
 
 }
+
+
+//####### Retreive_changepoints #######////####### Retreive_changepoints #######////####### Retreive_changepoints #######//
+//####### Retreive_changepoints #######////####### Retreive_changepoints #######////####### Retreive_changepoints #######//
+
 
 std::vector<int> FpopPSD::Retreive_changepoints()
 {
@@ -159,10 +178,19 @@ std::vector<int> FpopPSD::Retreive_changepoints()
 }
 
 
+//####### number_of_candidates_in_list #######////####### number_of_candidates_in_list #######////####### number_of_candidates_in_list #######//
+//####### number_of_candidates_in_list #######////####### number_of_candidates_in_list #######////####### number_of_candidates_in_list #######//
+
+
 std::vector<int> FpopPSD::Get_candidates()
 {
     return nb_candidates;
 }
+
+
+//####### number_of_intervals_in_all_areas_of_life #######////####### number_of_intervals_in_all_areas_of_life #######////####### number_of_intervals_in_all_areas_of_life #######//
+//####### number_of_intervals_in_all_areas_of_life #######////####### number_of_intervals_in_all_areas_of_life #######////####### number_of_intervals_in_all_areas_of_life #######//
+
 
 std::vector<int> FpopPSD::Get_intervals()
 {

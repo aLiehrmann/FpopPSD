@@ -9,6 +9,10 @@
 #include "Ordered_list_of_intervals.h"
 
 
+//####### Constructor #######////####### Constructor #######////####### Constructor #######//
+//####### Constructor #######////####### Constructor #######////####### Constructor #######//
+
+
 Candidate::Candidate(int tau_, Ordered_list_of_intervals z_, double cost_up_to_tau_, double pen_, Quadratic quad_)
 {
 
@@ -20,20 +24,39 @@ Candidate::Candidate(int tau_, Ordered_list_of_intervals z_, double cost_up_to_t
 }
 
 
+//####### Minimum_of_cost_function #######////####### Minimum_of_cost_function #######////####### Minimum_of_cost_function #######//
+//####### Minimum_of_cost_function #######////####### Minimum_of_cost_function #######////####### Minimum_of_cost_function #######//
+
+
 double Candidate::Minimum_of_cost_function()
 {   
     return quad.Minimum() + pen + cost_up_to_tau;
 }
+
+
+//####### update_penalty_on_last_segment #######////####### update_penalty_on_last_segment #######////####### update_penalty_on_last_segment #######//
+//####### update_penalty_on_last_segment #######////####### update_penalty_on_last_segment #######////####### update_penalty_on_last_segment #######//
+
 
 void Candidate::Set_penalty(double pen_)
 {
     pen = pen_;
 }
 
+
+//####### add_new_point #######////####### add_new_point #######////####### add_new_point #######//
+//####### add_new_point #######////####### add_new_point #######////####### add_new_point #######//
+
+
 void Candidate::Add_quadratic(double wt, double y)
 {
     quad.Add_coef(wt*pow(y,2), -2*wt*y, wt);
 }
+
+
+//####### Compare_to_past_candidate #######////####### Compare_to_past_candidate #######////####### Compare_to_past_candidate #######//
+//####### Compare_to_past_candidate #######////####### Compare_to_past_candidate #######////####### Compare_to_past_candidate #######//
+
 
 void Candidate::Compare_to_past_candidates (std::vector<std::list<Candidate>::iterator> & vector_of_it_candidates, Interval & D)
 {
@@ -47,11 +70,6 @@ void Candidate::Compare_to_past_candidates (std::vector<std::list<Candidate>::it
         new_quad = (*vector_of_it_candidates[i]).quad - quad;
         new_quad.Add_coef((*vector_of_it_candidates[i]).cost_up_to_tau - cost_up_to_tau,0,0);
         interval = new_quad.Negative_interval();
-        /*
-            Test qui garantit que list_of_interval n'est composée que d'intervalles non vides et qui ne sont pas des singletons.
-            On peut considérer le singleton comme un intervalle vide car la fonction quadratique par morceau est continue et les zones de vies des fonctions de côut adjacentes au singleton s'intersectent en ce point.
-            list_of_interval peut être vide.
-        */
         if (!interval.IsEmpty_or_singleton())
         {
             list_of_intervals.push_back(interval); 
@@ -61,6 +79,11 @@ void Candidate::Compare_to_past_candidates (std::vector<std::list<Candidate>::it
     list_of_merged_intervals.Complementary_in(D); 
     z = list_of_merged_intervals;
 }
+
+
+//####### Compare_to_future_candidate #######////####### Compare_to_future_candidate #######////####### Compare_to_future_candidate #######//
+//####### Compare_to_future_candidate #######////####### Compare_to_future_candidate #######////####### Compare_to_future_candidate #######//
+
 
 void Candidate::Compare_to_future_candidates (std::vector<std::list<Candidate>::iterator> & vector_of_it_candidates, std::vector<int> & chosen_future_candidates)
 {
@@ -73,11 +96,6 @@ void Candidate::Compare_to_future_candidates (std::vector<std::list<Candidate>::
         new_quad = quad - (*vector_of_it_candidates[indexe_chosen_future_candidates]).quad;
         new_quad.Add_coef(pen+cost_up_to_tau-((*vector_of_it_candidates[indexe_chosen_future_candidates]).pen+(*vector_of_it_candidates[indexe_chosen_future_candidates]).cost_up_to_tau),0,0);
         interval = new_quad.Negative_interval();
-        /*
-            Test qui garantit que list_of_interval n'est composée que d'intervalles non vides et qui ne sont pas des singletons.
-            Si on trouve un intervalle vide ou un singleton, on met à jour la zone de de vie du candidat courant à vide en vue de son élaguage (propriété sur l'intersection).
-            On peut considérer le singleton comme un intervalle vide car la fonction quadratique par morceau est continue et les zones de vies des fonctions de côut adjacentes au singleton s'intersectent en ce point.
-        */
         if (!interval.IsEmpty_or_singleton())
         {
             list_of_intervals.push_back(interval);
@@ -97,22 +115,21 @@ void Candidate::Compare_to_future_candidates (std::vector<std::list<Candidate>::
     }
 }
 
+
+//####### Get_last_changepoint_position #######////####### Get_last_changepoint_position #######////####### Get_last_changepoint_position #######//
+//####### Get_last_changepoint_position #######////####### Get_last_changepoint_position #######////####### Get_last_changepoint_position #######//
+
 int Candidate::Get_tau()
 {
     return tau;
 }
 
+
+//####### get_candidate_area_of_life #######////####### get_candidate_area_of_life #######////####### get_candidate_area_of_life #######//
+//####### get_candidate_area_of_life #######////####### get_candidate_area_of_life #######////####### get_candidate_area_of_life #######//
+
+
 Ordered_list_of_intervals Candidate::GetZ()
 {
     return z;
-}
-
-void Candidate::Set_wait()
-{
-    wait--;
-}
-
-int Candidate::Get_wait()
-{
-    return wait;
 }
