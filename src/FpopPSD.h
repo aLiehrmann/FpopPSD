@@ -37,7 +37,6 @@ public:
         int para_method_,
         std::vector<double> wt_ = {0});
     
-    FpopPSD ();
 
     /**
      * @details Procedure for inferring the number of changepoints and their location in the data.

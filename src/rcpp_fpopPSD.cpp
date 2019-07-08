@@ -11,7 +11,6 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 List fpopPSD(std::vector<double> y, double beta, double alpha, std::string sampling_method, int sampling_method_parameter, std::vector<double>  wt)
 {   
-    FpopPSD f;
     typedef std::vector<int> (*fun)(int, int, int);
     std::map<std::string, fun> map_sampling_method;
     map_sampling_method["rand_one"] = Sampling::Rand_one;
@@ -24,7 +23,7 @@ List fpopPSD(std::vector<double> y, double beta, double alpha, std::string sampl
     if (map_sampling_method.find(sampling_method)!= map_sampling_method.end())
     {
       
-      f = FpopPSD (y, 
+      FpopPSD f = FpopPSD (y, 
           beta, 
           alpha, 
           (*map_sampling_method[sampling_method]), 

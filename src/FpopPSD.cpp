@@ -11,11 +11,9 @@
 #include "Interval.h"
 
 
-//####### Constructors #######////####### Constructors #######////####### Constructors #######//
-//####### Constructors #######////####### Constructors #######////####### Constructors #######//
+//####### Constructor #######////####### Constructor #######////####### Constructor #######//
+//####### Constructor #######////####### Constructor #######////####### Constructor #######//
 
-
-FpopPSD::FpopPSD(){};
 
 FpopPSD::FpopPSD(std::vector<double> y_,
     double beta_,
