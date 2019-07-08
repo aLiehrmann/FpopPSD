@@ -9,7 +9,7 @@ using namespace Rcpp;
 
 
 // [[Rcpp::export]]
-List fpopPSD(std::vector<double> y, double beta, double alpha, std::string sampling_method, int sampling_method_parameter, std::vector<double>  wt)
+List fpopPSD_cpp(std::vector<double> y, double beta, double alpha, std::string sampling_method, int sampling_method_parameter, std::vector<double>  wt)
 {   
     typedef std::vector<int> (*fun)(int, int, int);
     std::map<std::string, fun> map_sampling_method;
@@ -49,7 +49,7 @@ List fpopPSD(std::vector<double> y, double beta, double alpha, std::string sampl
 
 
 // [[Rcpp::export]]
-List opPSD(std::vector<double> y, double beta, double alpha, std::vector<double>  wt)
+List opPSD_cpp(std::vector<double> y, double beta, double alpha, std::vector<double>  wt)
 {
   OpPSD f (y, beta, alpha, wt);
   f.Search();

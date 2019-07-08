@@ -1,3 +1,3 @@
 useDynLib(FpopPSD, .registration=TRUE)
-exportPattern("^[[:alpha:]]+")
+export("fpopPSD","opPSD")
 importFrom(Rcpp, evalCpp)

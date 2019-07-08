@@ -28,7 +28,7 @@ public:
      * @param[in] alpha a constant used in the calculation of the penalty.
      * @param[in] sampling_method a sampling method for candidates.
      * @param[in] param_method a parameter used by the sampling method.
-     * @paraam[in] wt a vector of weight linked to the data.    
+     * @param[in] wt a vector of weight linked to the data.    
      */
     FpopPSD(std::vector<double> y_,
         double beta_,
