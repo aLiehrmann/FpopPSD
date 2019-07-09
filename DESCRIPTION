@@ -1,11 +1,11 @@
 Package: FpopPSD
 Type: Package
-Title: What the Package Does in One 'Title Case' Line
+Title: Functional Pruning Optimal Partitioning with Penalty Segment Dependent
 Version: 1.0
 Date: 2019-06-28
-Author: Your Name
-Maintainer: Your Name <your@email.com>
-Description: One paragraph description of what the package does as one or more full sentences.
+Author: Arnaud Liehrmann 
+Maintainer: Arnaud Liehrmann <arnaud.lieh@gmail.com>
+Description: FpopPSD is an extension of FPOP, an exact data segmentation algorithm based on functional pruning. This extension implements a penlty depending on the length of the segments.
 License: GPL (>= 2)
 Imports: Rcpp (>= 1.0.1)
 LinkingTo: Rcpp
