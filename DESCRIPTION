@@ -5,7 +5,8 @@ Version: 1.0
 Date: 2019-06-28
 Author: Arnaud Liehrmann 
 Maintainer: Arnaud Liehrmann <arnaud.lieh@gmail.com>
-Description: FpopPSD is an extension of FPOP, an exact data segmentation algorithm based on functional pruning. This extension implements a penlty depending on the length of the segments.
-License: GPL (>= 2)
+Description: FpopPSD is an extension of FPOP, an exact data segmentation algorithm based on functional pruning. This extension implements a penalty that depends on the size of the segments.
+License: GPL-3
 Imports: Rcpp (>= 1.0.1)
 LinkingTo: Rcpp
+RoxygenNote: 6.1.1
