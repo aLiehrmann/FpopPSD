@@ -20,7 +20,7 @@ $$
 
 <a id="instal"></a>
 
-## Installation Notes 
+## Installation notes 
 
 #### Step 1: Install the devtools package
 
