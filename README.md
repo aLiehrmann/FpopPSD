@@ -8,7 +8,7 @@
 install.packages("devtools")
 ```
 
-### Step 2: Install the package of interest from GitHub
+### Step 2: Install the FpopPSD package from GitHub
 
 ```
 library(devtools)
