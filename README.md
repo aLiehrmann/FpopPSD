@@ -1,5 +1,24 @@
 # FpopPSD
 
+## Installation Notes 
+
+###Step 1: Install the devtools package
+
+```
+install.packages("devtools")
+```
+###Step 2: Install the package of interest from GitHub
+
+```
+library(devtools)
+install_github("aLiehrmann/FpopPSD")
+```
+###Step 3: Load the package
+
+```
+library(FpopPSD)
+```
+
 ##Rstudio
 
 ```{r}
