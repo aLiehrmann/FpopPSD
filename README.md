@@ -21,6 +21,23 @@ install_github("aLiehrmann/FpopPSD")
 library(FpopPSD)
 ```
 
+## Quickstart
+
+```{r}
+df <- read.table("quickstart_data/wellLogData.txt", header = T)
+ggplot(df, aes(x=time, y=y))+
+  geom_point(size=0.5)+
+  theme_bw()
+```
+![Screenshot](doc/img/data.png)
+```
+n = length(df$y)
+beta <- 2.5
+alpha <- 10 + beta * log(n)
+res <- fpopPSD(df$y, beta, alpha)
+```
+
+
 ## Rstudio
 
 ```{r}
