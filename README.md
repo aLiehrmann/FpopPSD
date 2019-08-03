@@ -14,7 +14,9 @@
 
 FpopPSD is an extension of FPOP, an exact data segmentation algorithm based on functional pruning. This extension implements a penalty that depends on the size of the segments. the algorithmic objective is to solve the following optimization problem:
 
-<img src="./doc/tex/opt_problem.svg" align="middle" width=500pt height=100pt>
+<p style="text-align:center;"><img src="doc/tex/opt_problem.svg" width=500 height=100>.</p>
+
+More details can be found [here](doc/FpopPSD_doc.pdf).
 
 <a id="instal"></a>
 
