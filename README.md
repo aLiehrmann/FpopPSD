@@ -4,7 +4,7 @@
 
 > [Introduction](#intro)
 
-> [Installation otes](#instal)
+> [Installation Notes](#instal)
 
 > [Quick Start](#qs)
 
