@@ -1,5 +1,3 @@
-\newcommand{\TAU}{\Large{\boldsymbol{\tau}}}
-\DeclareMathOperator*{\argmin}{arg\,min}
 # FpopPSD
 ### Arnaud Liehrmann
 #### Paris Saclay University
@@ -17,7 +15,7 @@
 FpopPSD is an extension of FPOP, an exact data segmentation algorithm based on functional pruning. This extension implements a penalty that depends on the size of the segments. the algorithmic objective is to solve the following optimization problem:
 
 $$
-    {\TAU}_{n}^{*}=\argmin_{\TAU_{n}\in \bigcup_{0<K<n} \mathcal{M}^{K}_{1:n}}\ \left[ \displaystyle\sum_{j=1}^{K+1}  \min_{\mu} \left[ \displaystyle\sum_{i=\tau_{j-1}+1}^{\tau{j}} (y_{i} -\mu)^2 -\beta g(\tau_{j}-\tau_{j-1})\right] + \alpha |\TAU_{n}|\right]
+    {{\Large{\boldsymbol{\tau}}}}_{n}^{*}=\operatorname*{arg\,min}_{{\Large{\boldsymbol{\tau}}}_{n}\in \bigcup_{0<K<n} \mathcal{M}^{K}_{1:n}}\ \left[ \displaystyle\sum_{j=1}^{K+1}  \min_{\mu} \left[ \displaystyle\sum_{i=\tau_{j-1}+1}^{\tau{j}} (y_{i} -\mu)^2 -\beta g(\tau_{j}-\tau_{j-1})\right] + \alpha |{\Large{\boldsymbol{\tau}}}_{n}|\right]
 $$
 
 <a id="instal"></a>
