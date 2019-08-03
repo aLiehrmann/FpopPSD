@@ -2,24 +2,26 @@
 
 ## Installation Notes 
 
-###Step 1: Install the devtools package
+### Step 1: Install the devtools package
 
 ```
 install.packages("devtools")
 ```
-###Step 2: Install the package of interest from GitHub
+
+### Step 2: Install the package of interest from GitHub
 
 ```
 library(devtools)
 install_github("aLiehrmann/FpopPSD")
 ```
-###Step 3: Load the package
+
+### Step 3: Load the package
 
 ```
 library(FpopPSD)
 ```
 
-##Rstudio
+## Rstudio
 
 ```{r}
 microbenchmark(fpopPSD(rnorm(10^5), 2.5, 10+2.5*log(10^5), "rand_one", 1, rep(1,10^5)), times=10)
