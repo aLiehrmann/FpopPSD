@@ -34,3 +34,22 @@ opPSD <- function(y, beta, alpha, wt=-1)
         }
         return (opPSD_cpp(y, beta, alpha, wt))
     }
+
+
+#' plot_seg
+#' @description plot the changepoints end the mean of the segments on the data.
+#' @param cp a vector of changepoints
+#' @param y a vector of data
+#' @param x a vector of data abscissa
+
+plot_seg <- function(cp, y, x){
+  cp_temp <- c(1, cp, length(y))
+  mean_seg <- unlist(lapply(2:length(cp_temp), function(i){mean(y[cp_temp[i-1]:cp_temp[i]])}))
+  df_mean_of_infered_segments <- data.frame(x = cp_temp[-length(cp_temp)], y=mean_seg, xend=cp_temp[-1], yend=mean_seg)
+  df <- data.frame(y=y, x=x)
+  ggplot(data = df, aes(y=y, x=x)) +
+    geom_point(size=0.5) +
+    geom_segment(data = df_mean_of_infered_segments, aes(x=x, y=y, xend=xend, yend=yend), colour="blue", size=1.5) +
+    geom_vline(xintercept = cp, colour="red") +
+    theme_bw()
+}
