@@ -16,13 +16,22 @@ fpopPSD(y, beta, alpha, sampling_method = "rand_one",
 
 \item{sampling_method}{a sampling method for candidates ("rand_one", "last", "rand_with_replacement", "rand_without_replacement", "all", "only")}
 
-\item{wt}{a vector of weight linked to the data}
+\item{sampling_method_parameter}{a parameter used by the sampling method}
 
-\item{param_method}{a parameter used by the sampling method}
+\item{wt}{a vector of weight linked to the data}
 }
 \value{
 a list with the changepoints and the number of intervals/candidates at each step
 }
 \description{
 fpopPSD is an extension of Fpop, an exact data segmentation algorithm based on functionnal pruning. This extension implements a penalty that depends on the size of the segments.
+}
+\examples{
+path_to_FpopPSD <- path.package("FpopPSD")
+df <- read.table(paste0(path_to_FpopPSD,"/wellLogData.txt"), header = TRUE)
+n <- length(df$y)
+beta <- 2.5
+alpha <- 10 + beta * log(n)
+res <- FpopPSD::fpopPSD(df$y, beta, alpha)
+res$changepoints
 }

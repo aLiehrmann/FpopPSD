@@ -14,5 +14,15 @@ plot_seg(cp, y, x)
 \item{x}{a vector of data abscissa}
 }
 \description{
-plotting the changepoints end the mean of the segments on the data.
+plot the changepoints and the mean of the segments on the data.
+}
+\examples{
+library(ggplot2)
+path_to_FpopPSD <- path.package("FpopPSD")
+df <- read.table(paste0(path_to_FpopPSD,"/wellLogData.txt"), header = TRUE)
+n <- length(df$y)
+beta <- 2.5
+alpha <- 10 + beta * log(n)
+res <- FpopPSD::fpopPSD(df$y, beta, alpha)
+FpopPSD::plot_seg(res$changepoints, df$y, df$time)
 }

@@ -7,7 +7,7 @@
 opPSD(y, beta, alpha, wt = -1)
 }
 \arguments{
-\item{y}{a vactor of data ordered according to an attribute}
+\item{y}{a vector of data ordered according to an attribute}
 
 \item{beta}{a coefficient used in the calculation of the penalty (recommended: 2.5)}
 
@@ -20,4 +20,13 @@ a list with the changepoints and the number of intervals/candidates at each step
 }
 \description{
 opPSD is the same method as fpopPSD without the pruning step.
+}
+\examples{
+path_to_FpopPSD <- path.package("FpopPSD")
+df <- read.table(paste0(path_to_FpopPSD,"/wellLogData.txt"), header = TRUE)
+n <- length(df$y)
+beta <- 2.5
+alpha <- 10 + beta * log(n)
+res <- FpopPSD::opPSD(df$y, beta, alpha)
+res$changepoints
 }

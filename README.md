@@ -49,7 +49,7 @@ library(FpopPSD)
 
 #### 1) Import data 
 ```{r}
-df <- read.table("quickstart_data/wellLogData.txt", header = T)
+df <- read.table("inst/wellLogData.txt", header = T)
 ggplot(df, aes(x=time, y=y))+
   geom_point(size=0.5)+
   theme_bw()
@@ -59,7 +59,7 @@ ggplot(df, aes(x=time, y=y))+
 
 #### 2) Search the optimal segmentation for the given penalty
 ```
-n = length(df$y)
+n <- length(dfa$y)
 beta <- 2.5
 alpha <- 10 + beta * log(n)
 res <- FpopPSD::fpopPSD(df$y, beta, alpha)
@@ -76,7 +76,7 @@ res$changepoints
 
 #### 3) Plot the changepoints and the mean of segments on data
 ```
-FpopPSD::plot_seg(res$changepoints, df$y, df$time)
+FpopPSD::plot_seg(res$changepoints, df$y, dfa$time)
 ```
 ![ ](doc/img/seg.png)
 
