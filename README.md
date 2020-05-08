@@ -12,7 +12,7 @@
 
 ## Introduction
 
-FpopPSD is an extension of FPOP, an exact and fast segmentation algorithm based on functional pruning. This extension implements a non linear penalty which depends of segments size. The algorithmic objective is to solve the following non-convex optimization problem:
+FpopPSD is an extension of FPOP, an exact and fast segmentation algorithm based on functional pruning. This extension implements a non linear penalty which depends of segments size. The algorithmic goal is to solve the following non-convex optimization problem:
 
 <p align="center">
 <img src="doc/tex/opt_problem.svg" width=500 height=100 align="center"/>.
